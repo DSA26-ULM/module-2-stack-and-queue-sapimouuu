@@ -14,7 +14,6 @@ bool isEmpty(const Queue* q) {
 }
 
 bool isFull(const Queue* q) {
-    // Dianggap penuh jika rear sudah mencapai batas akhir array
     if (q->rear == nullptr) return false;
     return q->rear == &(q->data[MAX - 1]);
 }
