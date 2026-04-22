@@ -14,22 +14,21 @@ bool isEmpty(const Queue* q) {
 }
 
 bool isFull(const Queue* q) {
-    if (q->rear == nullptr) return false;
+    if (isEmpty(q)) return false;
+    // Penuh jika rear sudah di ujung array
     return q->rear == &(q->data[MAX - 1]);
 }
 
 void enqueue(Queue* q, int value) {
     if (isFull(q)) {
-        throw runtime_error("Queue Overflow"); [cite: 41]
+        throw runtime_error("Queue Overflow"); // [cite: 41]
     }
 
     if (isEmpty(q)) {
-        // Elemen pertama
         q->data[0] = value;
         q->front = &(q->data[0]);
         q->rear = &(q->data[0]);
     } else {
-        // Geser rear ke alamat berikutnya
         q->rear++;
         *(q->rear) = value;
     }
@@ -37,29 +36,30 @@ void enqueue(Queue* q, int value) {
 
 void dequeue(Queue* q) {
     if (isEmpty(q)) {
-        throw runtime_error("Queue Underflow"); [cite: 41]
+        throw runtime_error("Queue Underflow"); // [cite: 41]
     }
 
     if (q->front == q->rear) {
-        // Jika tinggal 1 elemen, balikkan ke kondisi nullptr
         q->front = nullptr;
         q->rear = nullptr;
     } else {
-        // Majukan pointer front
-        q->front++;
+        // GESER DATA: Agar tidak cepat Overflow
+        // Pindahkan semua elemen satu langkah ke depan
+        int* current = q->front;
+        while (current < q->rear) {
+            *current = *(current + 1);
+            current++;
+        }
+        q->rear--; // Mundurkan rear karena satu data dihapus
     }
 }
 
 int front(const Queue* q) {
-    if (isEmpty(q)) {
-        throw runtime_error("Queue is Empty"); [cite: 41]
-    }
+    if (isEmpty(q)) throw runtime_error("Queue is Empty");
     return *(q->front);
 }
 
 int back(const Queue* q) {
-    if (isEmpty(q)) {
-        throw runtime_error("Queue is Empty"); [cite: 41]
-    }
+    if (isEmpty(q)) throw runtime_error("Queue is Empty");
     return *(q->rear);
 }
