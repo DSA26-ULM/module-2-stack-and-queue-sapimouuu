@@ -8,13 +8,12 @@ int main() {
     int n, k;
     if (!(cin >> n >> k)) return 0;
 
-    // Sesuai batasan soal n <= 100 [cite: 52]
     int arr[105]; 
     for (int i = 0; i < n; i++) {
         cin >> arr[i];
     }
 
-    if (k <= 0 || k > n) return 0; // [cite: 53]
+    if (k <= 0 || k > n) return 0;
 
     Queue q;
     init(&q);
@@ -39,6 +38,5 @@ int main() {
     } catch (...) {
         return 0;
     }
-
     return 0;
 }
