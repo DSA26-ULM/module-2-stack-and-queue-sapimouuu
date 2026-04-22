@@ -15,14 +15,15 @@ bool isEmpty(const Queue* q) {
 
 bool isFull(const Queue* q) {
     if (isEmpty(q)) return false;
-    // Penuh jika rear sudah menunjuk elemen terakhir di MAX (100)
+    // Pengecekan apakah rear sudah menunjuk ke index terakhir array data
     return q->rear == &(q->data[MAX - 1]);
 }
 
 void enqueue(Queue* q, int value) {
     if (isFull(q)) {
-        throw runtime_error("Queue Overflow"); // Syarat soal 3 [cite: 41]
+        throw runtime_error("Queue Overflow"); // Sesuai instruksi soal 
     }
+    
     if (isEmpty(q)) {
         q->data[0] = value;
         q->front = &(q->data[0]);
@@ -35,22 +36,28 @@ void enqueue(Queue* q, int value) {
 
 void dequeue(Queue* q) {
     if (isEmpty(q)) {
-        throw runtime_error("Queue Underflow"); // Syarat soal 3 [cite: 41]
+        throw runtime_error("Queue Underflow"); // Sesuai instruksi soal 
     }
+    
     if (q->front == q->rear) {
+        // Jika elemen terakhir, reset pointer ke nullptr
         q->front = nullptr;
         q->rear = nullptr;
     } else {
-        q->front++; // Cukup majukan front saja
+        q->front++;
     }
 }
 
 int front(const Queue* q) {
-    if (isEmpty(q)) throw runtime_error("Queue is Empty");
+    if (isEmpty(q)) {
+        throw runtime_error("Queue is Empty");
+    }
     return *(q->front);
 }
 
 int back(const Queue* q) {
-    if (isEmpty(q)) throw runtime_error("Queue is Empty");
+    if (isEmpty(q)) {
+        throw runtime_error("Queue is Empty");
+    }
     return *(q->rear);
 }
