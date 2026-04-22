@@ -14,10 +14,11 @@ bool isFull(const Stack* s) {
 }
 
 void push(Stack* s, int value) {
-    if (!isFull(s)) {
-        s->top++;
-        *(s->top) = value;
+    if (isFull(s)) {
+        throw "Stack Overflow";
     }
+    s->top++;
+    *(s->top) = value;
 }
 
 void pop(Stack* s) {
